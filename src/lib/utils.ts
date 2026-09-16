@@ -1,10 +1,18 @@
-// Anno dell'accoglienza: usato per calcolare l'eta' e nel titolo della stampa.
-// Per la prossima edizione basta cambiare questo numero (o il titolo sotto).
+// Anno dell'accoglienza: usato per calcolare l'eta' dei minori.
 export const ANNO_ACCOGLIENZA = 2026;
-export const TITOLO_STAMPA = `ACCOGLIENZE ESTATE ${ANNO_ACCOGLIENZA} - UCRAINA`;
 
-// Mesi proposti per il periodo di soggiorno (multi-selezione).
-export const MESI_PERIODO = ["Maggio", "Giugno", "Luglio", "Agosto", "Settembre"];
+// Titolo di stampa PREDEFINITO. Ora e' modificabile dall'app (salvato nel
+// database) e resta usato solo come valore iniziale la prima volta.
+export const TITOLO_STAMPA_DEFAULT = `ACCOGLIENZE ESTATE ${ANNO_ACCOGLIENZA} - UCRAINA`;
+
+// Sottotitolo fisso della stampa.
+export const SOTTOTITOLO_STAMPA = "DATI FAMIGLIE";
+
+// Tutti i mesi, selezionabili per il periodo di soggiorno (multi-selezione).
+export const MESI_PERIODO = [
+  "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+  "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre",
+];
 
 // Suggerimenti rapidi per la provenienza (resta comunque testo libero).
 export const PROVENIENZE = ["famiglia", "istituto"];

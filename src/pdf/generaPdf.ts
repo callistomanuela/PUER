@@ -2,7 +2,8 @@ import jsPDF from "jspdf";
 import autoTable, { type RowInput, type CellInput, type CellDef } from "jspdf-autotable";
 import type { Riga, Famiglia, Minore } from "../types";
 import {
-  TITOLO_STAMPA,
+  TITOLO_STAMPA_DEFAULT,
+  SOTTOTITOLO_STAMPA,
   formatDateIT,
   calcolaAnni,
   nomeCompleto,
@@ -34,8 +35,9 @@ function raggruppa(righe: Riga[]): Gruppo[] {
   return Array.from(map.values());
 }
 
-export function generaPdf(righeSelezionate: Riga[]): void {
+export function generaPdf(righeSelezionate: Riga[], titolo?: string): void {
   const gruppi = raggruppa(righeSelezionate);
+  const titoloStampa = (titolo ?? "").trim() || TITOLO_STAMPA_DEFAULT;
 
   const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
   const pageW = doc.internal.pageSize.getWidth();
@@ -43,9 +45,9 @@ export function generaPdf(righeSelezionate: Riga[]): void {
   // ---- Intestazione ----
   doc.setFont("helvetica", "bold");
   doc.setFontSize(14);
-  doc.text(TITOLO_STAMPA, pageW / 2, 13, { align: "center" });
+  doc.text(titoloStampa, pageW / 2, 13, { align: "center" });
   doc.setFontSize(11);
-  doc.text("DATI FAMIGLIE", pageW / 2, 19, { align: "center" });
+  doc.text(SOTTOTITOLO_STAMPA, pageW / 2, 19, { align: "center" });
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);

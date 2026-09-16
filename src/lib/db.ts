@@ -65,3 +65,26 @@ export async function cancellaFamiglia(id: string): Promise<void> {
   const { error } = await supabase.from("famiglie").delete().eq("id", id);
   if (error) throw error;
 }
+
+// ---------- Impostazioni (titolo di stampa) ----------
+
+/** Legge il titolo di stampa salvato dall'utente, o null se non impostato. */
+export async function caricaTitolo(): Promise<string | null> {
+  const { data, error } = await supabase
+    .from("impostazioni")
+    .select("titolo_stampa")
+    .maybeSingle();
+  if (error) throw error;
+  return data?.titolo_stampa ?? null;
+}
+
+/** Salva (crea o aggiorna) il titolo di stampa dell'utente. */
+export async function salvaTitolo(userId: string, titolo: string): Promise<void> {
+  const { error } = await supabase
+    .from("impostazioni")
+    .upsert(
+      { user_id: userId, titolo_stampa: titolo, updated_at: new Date().toISOString() },
+      { onConflict: "user_id" }
+    );
+  if (error) throw error;
+}

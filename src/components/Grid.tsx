@@ -5,6 +5,7 @@ import { generaPdf } from "../pdf/generaPdf";
 
 interface Props {
   famiglie: Famiglia[];
+  titolo: string;
   onNew: () => void;
   onEdit: (f: Famiglia) => void;
   onDelete: (f: Famiglia) => void;
@@ -30,7 +31,7 @@ function costruisciRighe(famiglie: Famiglia[]): Riga[] {
   return righe;
 }
 
-export default function Grid({ famiglie, onNew, onEdit, onDelete }: Props) {
+export default function Grid({ famiglie, titolo, onNew, onEdit, onDelete }: Props) {
   const [selezione, setSelezione] = useState<Set<string>>(new Set());
   const [q, setQ] = useState("");
 
@@ -72,7 +73,7 @@ export default function Grid({ famiglie, onNew, onEdit, onDelete }: Props) {
       alert("Seleziona almeno una riga da stampare.");
       return;
     }
-    generaPdf(scelte);
+    generaPdf(scelte, titolo);
   }
 
   const nSelezionate = righe.filter((r) => selezione.has(r.key)).length;
